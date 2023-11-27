@@ -1,14 +1,14 @@
-// bcrypt
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
 let db = null;
 let dbmysql = null;
 
-function setDatabase(dbm) {
-  db = dbm;
+function setDatabase(database) {
+  db = database;
 }
-function setDatabaseMysql(dbm) {
-  dbmysql = dbm;
+
+function setDatabaseMysql(database) {
+  dbmysql = database;
 }
 
 function control(ws) {
@@ -111,6 +111,7 @@ function getUserByLogin(login) {
     });
   });
 }
+
 function getUserByLogin2(login) {
   return new Promise((resolve, reject) => {
     dbmysql.query('SELECT * FROM users WHERE login = ?', [login], (err, row) => {
@@ -123,4 +124,4 @@ function getUserByLogin2(login) {
   });
 }
 
-module.exports = { control, setDatabase, setDatabaseMysql };
+export { control, setDatabase, setDatabaseMysql, getUserByLogin, getUserByLogin2 };
