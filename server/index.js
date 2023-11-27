@@ -1,37 +1,29 @@
-// Routing
-/* 
-
 import express from 'express';
-import request from 'request';
-import path from 'path';
+// import request from 'request';
+// import path from 'path';
 import cors from 'cors';
 import { createServer } from 'http';
-import { WebSocketServer, WebSocket } from 'ws';
+import { WebSocketServer } from 'ws';
+import * as accManager from './account_manager.js';
+import * as dbManager from './db.js';
 
-*/
-
-const express = require('express');
-const request = require('request');
-const path = require('path');
-const cors = require('cors');
-const { createServer } = require('http');
-const { WebSocketServer, WebSocket } = require('ws');
-
+// Routing
 const app = express();
 
 app.use(cors({ origin: '*' }));
 
 // Server
 const server = createServer(app);
-// eslint-disable-next-line no-undef
-const PORT = process.env.PORT || 5000;
+
+const PORT = 5000;
 
 // WebSocket
 const wss = new WebSocketServer({ server });
 
 // Database
-const dbManager = require('./db');
 let db = dbManager.open('conf');
+console.log('db: ', db);
+
 db.serialize(() => {
   db.run(
     'CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY AUTOINCREMENT, theme TEXT, lang TEXT)'
@@ -74,7 +66,6 @@ db.serialize(() => {
 });
 
 // Account
-const accManager = require('./account_manager');
 accManager.setDatabase(db);
 
 wss.on('connection', (ws) => {
@@ -82,9 +73,6 @@ wss.on('connection', (ws) => {
 
   accManager.control(ws);
   dbManager.control(ws);
-
-  //    contactManager.control(ws);
-  //    updateManager.control(ws);
 
   ws.on('message', (message) => {
     try {
@@ -103,6 +91,5 @@ wss.on('connection', (ws) => {
 
 // Start server
 server.listen(PORT, function () {
-  console.log('Proxe Server v0.1.0 starting...');
-  console.log('Proxe Server v0.1.0 listening at port %d', PORT);
+  console.log('Server listening at port: ', PORT);
 });
