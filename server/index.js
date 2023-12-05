@@ -47,8 +47,7 @@ db.serialize(() => {
       // db.run(createTableQuery);
       db.run(createTableQuery, (err) => {
         if (err) {
-          // Table already created
-          console.log('Table already created');
+          console.log('Table didn`t create');
         } else {
           // Table just created, creating some rows
           const insert = 'INSERT INTO projects (name, orgname) VALUES (?,?)';
@@ -60,7 +59,7 @@ db.serialize(() => {
       });
       console.log('Projects table is successfully created.');
     } else {
-      console.log('Projects table didn`t create');
+      console.log('Projects table already created');
     }
   });
 });
@@ -90,6 +89,6 @@ wss.on('connection', (ws) => {
 });
 
 // Start server
-server.listen(PORT, function () {
+server.listen(PORT, () => {
   console.log('Server listening at port: ', PORT);
 });

@@ -1,24 +1,19 @@
 import bcrypt from 'bcrypt';
 
 let db = null;
-let dbmysql = null;
 
-function setDatabase(database) {
+const setDatabase = (database) => {
   db = database;
-}
+};
 
-function setDatabaseMysql(database) {
-  dbmysql = database;
-}
-
-function control(ws) {
+const control = (ws) => {
   ws.on('message', async (message) => {
     try {
       const { type, data } = JSON.parse(message);
       if (type === 'login') {
         const { login, password } = data;
         const user = await getUserByLogin(login);
-        //                const userMysql = await getUserByLogin2(login);
+
         if (!user) {
           ws.send(JSON.stringify({ type: 'loginError', message: 'userFailed' }));
           return;
@@ -26,7 +21,6 @@ function control(ws) {
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (isPasswordCorrect) {
           ws.send(JSON.stringify({ type: 'loginSuccess', user }));
-          //                        console.log('data:'+ JSON.stringify(userMysql));
         } else {
           ws.send(JSON.stringify({ type: 'loginError', message: 'passwdFailed' }));
         }
@@ -98,9 +92,9 @@ function control(ws) {
       console.error('Помилка при розборі повідомлення:', error);
     }
   });
-}
+};
 
-function getUserByLogin(login) {
+const getUserByLogin = (login) => {
   return new Promise((resolve, reject) => {
     db.get('SELECT * FROM users WHERE login = ?', [login], (err, row) => {
       if (err) {
@@ -110,18 +104,6 @@ function getUserByLogin(login) {
       }
     });
   });
-}
+};
 
-function getUserByLogin2(login) {
-  return new Promise((resolve, reject) => {
-    dbmysql.query('SELECT * FROM users WHERE login = ?', [login], (err, row) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(row);
-      }
-    });
-  });
-}
-
-export { control, setDatabase, setDatabaseMysql, getUserByLogin, getUserByLogin2 };
+export { control, setDatabase, getUserByLogin };

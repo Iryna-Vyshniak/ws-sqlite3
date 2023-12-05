@@ -15,7 +15,7 @@ export const connectWebsocket = (url) => {
 
       const message = {
         type: 'debug',
-        msg: 'Proxe is connected to WebSocket',
+        msg: 'ws-sqlite is connected to WebSocket',
       };
       ws.send(JSON.stringify(message));
 
@@ -42,7 +42,7 @@ export const connectWebsocket = (url) => {
 
 //     const message = {
 //       type: 'debug',
-//       msg: 'Proxe is connected to WebSocket',
+//       msg: 'ws-sqlite is connected to WebSocket',
 //     };
 //     ws.send(JSON.stringify(message));
 //   };

@@ -1,43 +1,22 @@
-import mysql2 from 'mysql2';
 import sqlite3 from 'sqlite3';
 
-let dbmysql = null;
-
-function openMysql(name) {
-  dbmysql = mysql2.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '777',
-    database: name,
-  });
-  dbmysql.connect((err) => {
-    if (err) {
-      console.error('error mysql: ' + err.stack);
-      return;
-    }
-    console.log('db is mysql is open');
-  });
-  return dbmysql;
-}
-
 const sql = sqlite3.verbose();
-// console.log('sql: ', sql);
 let db = null;
 
-function open(name) {
+const open = (name) => {
   db = new sql.Database('server/' + name + '.db', (err) => {
     if (err) console.error(err.message);
     else console.log("Database '" + name + "' is open!");
   });
 
   return db;
-}
+};
 
-function close() {
+const close = () => {
   db.close();
-}
+};
 
-function control(ws) {
+const control = (ws) => {
   ws.on('message', function (message) {
     try {
       const { type, data } = JSON.parse(message);
@@ -119,6 +98,6 @@ function control(ws) {
       console.error(error);
     }
   });
-}
+};
 
-export { open, close, openMysql, control };
+export { open, close, control };
