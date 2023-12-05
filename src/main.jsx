@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
-import './index.css';
+import './stylesheet/index.css';
 // import { connectWebsocket } from './websocketManager.js';
 import GlobalStates from './shared/context/global.states.context.jsx';
 
@@ -14,7 +14,7 @@ ws.onopen = () => {
 
   const message = {
     type: 'debug',
-    msg: 'Proxe is connected to WebSocket',
+    msg: 'ws-sqlite is connected to WebSocket',
   };
   ws.send(JSON.stringify(message));
 };
