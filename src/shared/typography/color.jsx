@@ -27,8 +27,10 @@ const color = (name) => {
     // Primary
     case 'primary':
       return colorTheme('#080c12', '#b3c2cc');
-    case 'primaryText':
+    case 'primaryTitle':
       return colorTheme('#a2c11c', '#4B721f');
+    case 'primaryText':
+      return colorTheme('#f5f5f5', '#00021d');
     case 'primaryHover':
       return colorTheme('#1e1177ff', '#99aec4');
     case 'primaryHighlight':
