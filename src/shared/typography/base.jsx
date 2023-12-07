@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+import { color } from './color';
 import { vspx } from './viewsize';
 
 const Item = ({ children, ...props }) => {
@@ -63,10 +64,11 @@ const Row = ({ className, onClick, children, ...props }) => {
   );
 };
 
-const Column = ({ className, onClick, children, ...props }) => {
+const Column = ({ className, onClick, children, style, ...props }) => {
   const columnStyles = {
     display: 'flex',
     flexDirection: 'column',
+    ...style,
     ...props,
   };
 
