@@ -14,8 +14,10 @@ const Layout = () => {
   return (
     <>
       <Header
+        position='relative'
         height={vs(50)}
-        style={{ background: color('background'), boxShadow: `0 24px 26px 7px rgba(7,145,0,0.1)` }}
+        background={color('background')}
+        boxShadow={`0 24px 26px 7px rgba(7,145,0,0.1)`}
       >
         <Image src={Logo} alt='logo' style={{ marginLeft: vspx(20) }} width={vspx(80)} />
         <ThemeSwitcher />
@@ -31,14 +33,18 @@ const Layout = () => {
           <Outlet />
         </Suspense>
       </Column>
-      <Footer height={vs(70)} style={{ background: color('background') }}>
+      <Footer
+        height={vs(70)}
+        background={color('background')}
+        boxShadow={`-2px 0 16px .4375rem rgba(7,145,0,0.1)`}
+      >
         <p
           style={{
             color: color('primaryText'),
             fontSize: vspx(12),
           }}
         >
-          SqlWs.com, {`${new Date().getFullYear()}`}
+          sql_ws.com, {`${new Date().getFullYear()}`}
         </p>
       </Footer>
     </>
