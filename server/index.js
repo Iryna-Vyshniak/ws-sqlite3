@@ -1,12 +1,8 @@
 import express from 'express';
-// import request from 'request';
-// import path from 'path';
 import cors from 'cors';
 import { createServer } from 'http';
 import { WebSocketServer } from 'ws';
-import * as accManager from './account_manager.js';
 import * as dbManager from './db.js';
-// console.log('dbManager: ', dbManager);
 
 // Routing
 const app = express();
@@ -88,13 +84,9 @@ db.serialize(() => {
   });
 });
 
-// Account
-// accManager.setDatabase(db);
-
 wss.on('connection', (ws) => {
   console.log('connecting to  WebSocket');
 
-  // accManager.control(ws);
   dbManager.control(ws);
 
   ws.on('message', (message) => {
