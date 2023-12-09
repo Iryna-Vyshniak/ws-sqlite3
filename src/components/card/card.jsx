@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 import Article from '../../shared/typography/article';
-import { Column, Image, Item, Row, Text } from '../../shared/typography/base';
+import { Column, Image, Row, Text } from '../../shared/typography/base';
 import { color } from '../../shared/typography/color';
 import { vs, vspx } from '../../shared/typography/viewsize';
-import Earth from '../../assets/images/earth.png';
 import Popup from '../../shared/typography/popup';
-import PopupForm from '../popup-form/popup.form';
 import { useModal } from '../../shared/hooks/useModal';
+import Button from '../../shared/controls/button';
+import PopupForm from '../popup-form/popup.form';
+import Earth from '../../assets/images/earth.png';
+import Delete from '../../assets/icons/trash.png';
 
-function Card({ data: { id, name, orgname, slogan, datacreate }, onData, ...props }) {
+function Card({ data: { id, name, orgname, slogan, datacreate }, onData, deleteData, ...props }) {
   const { onShowModal, onCloseModal, showModal } = useModal();
   return (
     <>
@@ -44,17 +46,36 @@ function Card({ data: { id, name, orgname, slogan, datacreate }, onData, ...prop
           />
         }
         footer={
-          <Text
-            display='flex'
-            marginTop={vspx(8)}
-            text={datacreate}
-            color={color('primaryText')}
-            fontSize='60%'
-          />
+          <Row gap='1rem' alignItems='center' justifyContent='center'>
+            <Text
+              display='flex'
+              marginTop={vspx(8)}
+              text={datacreate}
+              color={color('primaryText')}
+              fontSize='60%'
+            />
+            <Button
+              type='button'
+              width={vspx(60)}
+              height={vspx(30)}
+              boxShadow={`0 4px 8px 0 ${color('primaryDark')}`}
+              display='flex'
+              alignItems='center'
+              justifyContent='center'
+              onClick={() => deleteData(id)}
+            >
+              <Image src={Delete} alt='trash' width='30%' />
+            </Button>
+          </Row>
         }
-        onClick={onShowModal}
       >
-        <Column height='100%' width='100%' padding={vspx(10)}>
+        <Column
+          height='100%'
+          width='100%'
+          padding={vspx(10)}
+          cursor='pointer'
+          onClick={onShowModal}
+        >
           <Row
             height='50%'
             padding='5%'
