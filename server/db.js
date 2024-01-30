@@ -34,17 +34,7 @@ const control = (ws) => {
         case 'delete':
           deleteData(data.tableName, data.where, db);
           break;
-        case 'select':
-          select(data.tableName, data.placeholders, data.where).then((rows) => {
-            ws.send(
-              JSON.stringify({
-                type: 'databaseSelectChanged',
-                tableName: data.tableName,
-                value: rows,
-              })
-            );
-          });
-          break;
+
         case 'selectAll':
           const sql = data.where ? ` WHERE ${data.where}` : '';
           db.all('SELECT * FROM ' + data.tableName + sql, (err, rows) => {
@@ -61,29 +51,11 @@ const control = (ws) => {
             );
           });
           break;
-        case 'selectSorted':
-          select(
-            data.tableName,
-            data.placeholders,
-            data.where,
-            data.orderBy,
-            data.orderDirection
-          ).then((rows) => {
-            ws.send(
-              JSON.stringify({
-                type: 'databaseSelectSortedChanged',
-                tableName: data.tableName,
-                value: rows,
-              })
-            );
-          });
-          break;
       }
     } catch (error) {
       console.error('Error parsing JSON:', error.message);
     }
   });
 };
-
 
 export { open, close, control };
