@@ -1,3 +1,5 @@
+(wait while server upload 🙃)
+
 ## Instant Data Exchange Application with WebSocket and SQLite3
 
 This is a simple application that utilizes WebSocket for real-time data exchange and SQLite3 for database operations. The application allows users to create, update, and delete cards containing information such as name, organization name, slogan, and creation date.
