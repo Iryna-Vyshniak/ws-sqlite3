@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
+
 import { Label, Row } from '../../shared/typography/base';
 import Button from '../../shared/controls/button';
 import { color } from '../../shared/typography/color';
 import { vspx } from '../../shared/typography/viewsize';
 import Input from '../../shared/controls/input';
 import Form from '../../shared/controls/form';
-import { useGlobalStates } from '../../shared/context/global.states.context';
 
 // eslint-disable-next-line react/prop-types
 const PopupForm = ({ data, onCloseModal, onData }) => {
@@ -14,8 +14,6 @@ const PopupForm = ({ data, onCloseModal, onData }) => {
       ? data
       : { name: '', orgname: '', slogan: '', datacreate: new Date().toISOString().split('T')[0] }
   );
-  //const { ws } = useGlobalStates();
-  // console.log('ws: ', ws);
 
   useEffect(() => {
     data
@@ -27,8 +25,6 @@ const PopupForm = ({ data, onCloseModal, onData }) => {
           datacreate: new Date().toISOString().split('T')[0],
         });
   }, [data]);
-
-  // console.log('dataForm: ', dataForm);
 
   const { name, orgname, slogan, datacreate } = dataForm;
 

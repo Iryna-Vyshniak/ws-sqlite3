@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { connectWebsocket } from '../../websocketManager';
+import { createContext, useContext, useState } from 'react';
 
 export const Context = createContext();
 
@@ -25,7 +24,6 @@ const GlobalStates = ({ ws, children }) => {
 
   const contextValue = {
     ws,
-    connectWebsocket,
     theme,
     toggleTheme,
   };

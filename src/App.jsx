@@ -1,6 +1,7 @@
 import { Suspense, lazy, useState } from 'react';
-import { setVp } from './shared/typography/viewsize';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { setVp } from './shared/typography/viewsize';
 import Layout from './components/layout/layout';
 import { useGlobalStates } from './shared/context/global.states.context';
 
@@ -17,7 +18,6 @@ function App() {
   const [data, setData] = useState([]);
 
   const { ws } = useGlobalStates();
-  console.log('ws: ', ws);
 
   const message = {
     type: 'selectAll',
@@ -38,7 +38,6 @@ function App() {
   };
 
   const onData = (info) => {
-    console.log('info: ', info);
     const insertMessage = {
       type: 'insert',
       data: {
@@ -63,7 +62,6 @@ function App() {
   };
 
   const deleteData = (info) => {
-    console.log('info: ', info);
     const deleteMessage = {
       type: 'delete',
       data: {
@@ -75,8 +73,6 @@ function App() {
     ws.send(JSON.stringify(deleteMessage));
     ws.send(JSON.stringify(message));
   };
-
-  //console.log('data', data);
 
   return (
     <BrowserRouter>
